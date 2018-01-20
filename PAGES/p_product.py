@@ -3,37 +3,37 @@ from tkinter.ttk import *
 
 from PIL import ImageTk, Image
 
-from Controllers.Setting import SettingsController
-from Frames.rental import RentalPage
+from FUNC.f_userd import f_userd
+from PAGES.p_new_rental import p_new_rental
 
 
-class ToolPage(Frame):
+class p_product(Frame):
     dayfee = 0
 
     def __init__(self, parent, controller):
-        from Frames.main import MainPage
-        from Frames.result import ResultPage
-        from Controllers.Tools import ToolController
+        from PAGES.p_start import p_start
+        from PAGES.p_result import p_result
+        from FUNC.f_products import f_products
         self.controller = controller
-        self.tool = ToolController()
+        self.tool = f_products()
         Frame.__init__(self, parent)
         self.controller = controller
-        Button(self, text="Logout", command=lambda: controller.show_frame(MainPage)).pack()
+        Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
         # back
-        Button(self, text="Back", command=lambda: controller.show_frame(ResultPage)).pack(pady=10, padx=10)
-        Label(self, text="Tool Details", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
-        Label(self, text="Name:", font=SettingsController.SMALL_FONT).pack()
-        self.name = Label(self, text="Name:", font=SettingsController.SMALL_FONT)
+        Button(self, text="Back", command=lambda: controller.show_frame(p_result)).pack(pady=10, padx=10)
+        Label(self, text="Tool Details", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
+        Label(self, text="Name:", font=f_userd.SMALL_FONT).pack()
+        self.name = Label(self, text="Name:", font=f_userd.SMALL_FONT)
         self.name.pack()
-        Label(self, text="Description:", font=SettingsController.SMALL_FONT).pack()
-        self.description = Label(self, text="Name:", font=SettingsController.SMALL_FONT)
+        Label(self, text="Description:", font=f_userd.SMALL_FONT).pack()
+        self.description = Label(self, text="Name:", font=f_userd.SMALL_FONT)
         self.description.pack()
-        Label(self, text="photos:", font=SettingsController.SMALL_FONT).pack()
+        Label(self, text="photos:", font=f_userd.SMALL_FONT).pack()
         self.frame = Frame(self, relief=RAISED, borderwidth=1)
         self.frame.pack(fill=BOTH, expand=True)
 
-        Label(self, text="Price:", font=SettingsController.SMALL_FONT).pack()
-        self.price = Label(self, text="Name:", font=SettingsController.SMALL_FONT)
+        Label(self, text="Price:", font=f_userd.SMALL_FONT).pack()
+        self.price = Label(self, text="Name:", font=f_userd.SMALL_FONT)
         self.price.pack()
         Button(self, text="Rent", command=self.rental).pack(pady=10, padx=10)
 
@@ -58,4 +58,4 @@ class ToolPage(Frame):
     def rental(self):
         self.controller.price = self.dayfee
 
-        self.controller.show_frame(RentalPage)
+        self.controller.show_frame(p_new_rental)

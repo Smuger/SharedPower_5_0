@@ -1,10 +1,10 @@
 import time
 
-from Controllers.DataBase import DataBaseController
+from FUNC.f_db import f_db
 
 
-class InvoicesController:
-    db = DataBaseController()
+class f_invoice:
+    db = f_db()
 
     # get invoices
     def get_invoices(self, userid):

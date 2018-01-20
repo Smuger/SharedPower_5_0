@@ -1,29 +1,29 @@
 from tkinter import *
 from tkinter.ttk import *
 
-from Controllers.Invoices import InvoicesController
-from Controllers.Setting import SettingsController
-from Frames.search import SearchPage
+from FUNC.f_invoice import f_invoice
+from FUNC.f_userd import f_userd
+from PAGES.p_search import p_search
 
 
-class InvoicesPage(Frame):
+class p_multiple_invoices(Frame):
     invoceslist = []
     relinvoicelist = []
 
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         #basic imports
-        from Frames.main import MainPage
-        from Frames.result import ResultPage
-        from Controllers.Tools import ToolController
+        from PAGES.p_start import p_start
+        from PAGES.p_result import p_result
+        from FUNC.f_products import f_products
         #basic properties
         self.controller = controller
-        self.tool = ToolController()
-        self.invoices = InvoicesController()
+        self.tool = f_products()
+        self.invoices = f_invoice()
 
         #basic gui
-        Button(self, text="Logout", command=lambda: controller.show_frame(MainPage)).pack()
-        Button(self, text="Back", command=lambda: self.controller.show_frame(SearchPage)).pack(pady=10, padx=10)
+        Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
+        Button(self, text="Back", command=lambda: self.controller.show_frame(p_search)).pack(pady=10, padx=10)
 
         scrollbar = Scrollbar(self)
         scrollbar.pack(side=RIGHT, fill=Y)
@@ -32,7 +32,7 @@ class InvoicesPage(Frame):
             self.invoicesbox.insert(END, "Invoice number" + str(line))
         self.invoicesbox.pack(fill=BOTH)
         scrollbar.config(command=self.invoicesbox.yview())
-        Label(self, text="Invoiced from my rentings:", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
+        Label(self, text="Invoiced from my rentings:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
         # scrollbar NOT-WORK
         scrollbar = Scrollbar(self)
@@ -63,21 +63,21 @@ class InvoicesPage(Frame):
                 self.relinvoicelist.append(invoice)
 
     def onselect(self, evt):
-        from Frames.invoice import InvoicePage
+        from PAGES.p_invoice import p_invoice
         w = evt.widget
         print(w.curselection())
         index = int(w.curselection()[0])
         value = w.get(index)
         self.controller.selectedinvoice = value
         self.controller.selectedinvoiceid = self.invoceslist[index]["id"]
-        self.controller.show_frame(InvoicePage)
+        self.controller.show_frame(p_invoice)
 
     def onselectrelatedinvoice(self, evt):
-        from Frames.invoice import InvoicePage
+        from PAGES.p_invoice import p_invoice
         w = evt.widget
         print(w.curselection())
         index = int(w.curselection()[0])
         value = w.get(index)
         self.controller.selectedinvoice = value
         self.controller.selectedrelinvoiceid = self.invoceslist[index]["id"]
-        self.controller.show_frame(InvoicePage)
+        self.controller.show_frame(p_invoice)

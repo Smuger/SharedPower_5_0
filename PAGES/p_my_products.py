@@ -1,37 +1,37 @@
 from tkinter import *
 from tkinter.ttk import *
 
-from Frames.finishrental import FinishRentalPage
-from Frames.rental import RentalPage
-from Frames.tool import ToolPage
+from PAGES.p_end_rental import p_end_rental
+from PAGES.p_new_rental import p_new_rental
+from PAGES.p_product import p_product
 
-class MyToolsPage(Frame):
+class p_my_products(Frame):
     selectedtool = "";
     toollist = []
     renttoollist =[]
     def __init__(self, parent, controller):
-        from Frames.main import MainPage
-        from Frames.search import SearchPage
-        from Controllers.Setting import SettingsController
-        from Controllers.Tools import ToolController
-        from Controllers.Rental import RentalController
+        from PAGES.p_start import p_start
+        from PAGES.p_search import p_search
+        from FUNC.f_userd import f_userd
+        from FUNC.f_products import f_products
+        from FUNC.f_rental import f_rental
         self.controller = controller
-        self.tool = ToolController()
-        self.rental = RentalController()
+        self.tool = f_products()
+        self.rental = f_rental()
         Frame.__init__(self, parent)
         # logout
-        Button(self, text="Logout", command=lambda: self.controller.show_frame(MainPage)).pack()
+        Button(self, text="Logout", command=lambda: self.controller.show_frame(p_start)).pack()
 
         # back
-        back = Button(self, text="Back", command=lambda: self.controller.show_frame(SearchPage)).pack(pady=10, padx=10)
+        back = Button(self, text="Back", command=lambda: self.controller.show_frame(p_search)).pack(pady=10, padx=10)
 
         # topic
-        self.topic = Label(self, text="Your balance is: £" + str(SettingsController.WALLET),
-                      font=SettingsController.LARGE_FONT)
+        self.topic = Label(self, text="Your balance is: £" + str(f_userd.WALLET),
+                      font=f_userd.LARGE_FONT)
         self.topic.pack(pady=10, padx=10)
 
         # what tools you leased
-        Label(self, text="Leased:", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
+        Label(self, text="Leased:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
         # scrollbar NOT-WORK
 
@@ -43,7 +43,7 @@ class MyToolsPage(Frame):
         # scrollbar
 
         # what tools you rented
-        Label(self, text="Rented:", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
+        Label(self, text="Rented:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
         # scrollbar NOT-WORK
 
@@ -74,18 +74,18 @@ class MyToolsPage(Frame):
 
     def onselect(self, evt):
 
-        from Frames.mytool import MyToolPage
+        from PAGES.p_my_product import p_my_product
         w = evt.widget
         index = int(w.curselection()[0])
         value = w.get(index)
         self.controller.selectedtool = value
         self.controller.selectedtoolid = self.toollist[index]["id"]
 
-        self.controller.show_frame(MyToolPage)
+        self.controller.show_frame(p_my_product)
 
     def onselectrental(self, evt):
         w = evt.widget
         index = int(w.curselection()[0])
         value = w.get(index)
         self.controller.selectrental = self.renttoollist[index]["id"]
-        self.controller.show_frame(FinishRentalPage)
+        self.controller.show_frame(p_end_rental)

@@ -1,7 +1,7 @@
-from Controllers.DataBase import DataBaseController
+from FUNC.f_db import f_db
 
 
-class LoginController:
+class f_logon:
     # login status
     session = False
     # id of user after login
@@ -11,7 +11,7 @@ class LoginController:
 
     # user login
     def login(self, username, password):
-        db = DataBaseController()
+        db = f_db()
         # search user by combination of username and password
         login = db.getuser("login", username, password)
         # check status

@@ -2,27 +2,27 @@ from tkinter import *
 from tkinter.ttk import *
 
 
-class ResultPage(Frame):
+class p_result(Frame):
     def __init__(self, parent, controller):
-        from Frames.main import MainPage
-        from Frames.search import SearchPage
-        from Controllers.Setting import SettingsController
-        from Controllers.Tools import ToolController
-        from Controllers.Rental import RentalController
+        from PAGES.p_start import p_start
+        from PAGES.p_search import p_search
+        from FUNC.f_userd import f_userd
+        from FUNC.f_products import f_products
+        from FUNC.f_rental import f_rental
         self.controller = controller
-        self.tool = ToolController()
-        self.rental = RentalController()
-        from Controllers.Setting import SettingsController
+        self.tool = f_products()
+        self.rental = f_rental()
+        from FUNC.f_userd import f_userd
         Frame.__init__(self, parent)
 
         # logout
-        logout = Button(self, text="Logout", command=lambda: controller.show_frame(MainPage)).pack()
+        logout = Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
 
         # back
-        back = Button(self, text="Back", command=lambda: controller.show_frame(SearchPage)).pack()
+        back = Button(self, text="Back", command=lambda: controller.show_frame(p_search)).pack()
 
         # search
-        self.search_entry = Entry(self, textvariable=SettingsController.SEARCH_RESULT)
+        self.search_entry = Entry(self, textvariable=f_userd.SEARCH_RESULT)
         self.search_entry.pack(pady=10, padx=10)
         search = Button(self, text="Search", command=self.search).pack()
 
@@ -58,7 +58,7 @@ class ResultPage(Frame):
         self.controller.show_frame(ResultPage)
 
     def onselect(self, evt):
-        from Frames.tool import ToolPage
+        from PAGES.p_product import p_product
 
         w = evt.widget
         index = int(w.curselection()[0])

@@ -3,48 +3,48 @@ from tkinter.ttk import *
 
 from PIL import ImageTk, Image
 
-from Controllers.Setting import SettingsController
-from Frames.invoices import InvoicesPage
+from FUNC.f_userd import f_userd
+from PAGES.p_multiple_invoices import p_multiple_invoices
 
 
-class InvoicePage(Frame):
+class p_invoice(Frame):
     def __init__(self, parent, controller):
         self.controller = controller
         Frame.__init__(self, parent)
         # basic imports
-        from Frames.main import MainPage
-        from Frames.result import ResultPage
-        from Controllers.Tools import ToolController
+        from PAGES.p_start import p_start
+        from PAGES.p_result import p_result
+        from FUNC.f_products import f_products
 
         # basic properties
         self.controller = controller
-        self.tool = ToolController()
+        self.tool = f_products()
         Frame.__init__(self, parent)
         self.controller = controller
 
         # inserting of elements of gui
-        Button(self, text="Logout", command=lambda: controller.show_frame(MainPage)).pack()
-        Button(self, text="Back", command=lambda: self.controller.show_frame(InvoicesPage)).pack(pady=10, padx=10)
-        self.invocename = Label(self, text="Invoce 23:", font=SettingsController.LARGE_FONT)
+        Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
+        Button(self, text="Back", command=lambda: self.controller.show_frame(p_multiple_invoices)).pack(pady=10, padx=10)
+        self.invocename = Label(self, text="Invoce 23:", font=f_userd.LARGE_FONT)
         self.invocename.pack(pady=10, padx=10)
 
-        Label(self, text="Payment List:", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
+        Label(self, text="Payment List:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
         self.frame = Frame(self, relief=RAISED, borderwidth=1)
         self.frame.pack(fill=BOTH, expand=True)
 
-        self.photos = Label(self, text="Photos:", font=SettingsController.LARGE_FONT)
+        self.photos = Label(self, text="Photos:", font=f_userd.LARGE_FONT)
         self.photos.pack()
         self.photolistframe = Frame(self, relief=RAISED, borderwidth=1)
         self.photolistframe.pack(fill=BOTH, expand=True)
-        Label(self, text="Price", font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
-        self.price = Label(self, text="Price", font=SettingsController.LARGE_FONT)
+        Label(self, text="Price", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
+        self.price = Label(self, text="Price", font=f_userd.LARGE_FONT)
         self.price.pack(pady=10, padx=10)
 
     # basic actions before show frame
     def run(self):
-        from Controllers.Invoices import InvoicesController
+        from FUNC.f_invoice import f_invoice
         self.photos.config(text="")
-        invoices = InvoicesController()
+        invoices = f_invoice()
         invoice = ""
         #claer payment list
         for child in self.frame.winfo_children():
@@ -72,7 +72,7 @@ class InvoicePage(Frame):
         #insert payment list items
         for item in invoice["itemlist"]:
             Label(self.frame, text=item,
-                  font=SettingsController.LARGE_FONT).pack(pady=10, padx=10)
+                  font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
         print(invoice)
         #show invoice name
         self.invocename.config(text=self.controller.selectedinvoice)

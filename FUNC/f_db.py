@@ -2,7 +2,7 @@ from tinydb import *
 import time
 
 
-class DataBaseController:
+class f_db:
     userdb = ""
     toolsdb = ""
     rentalsdb = ""
@@ -11,13 +11,13 @@ class DataBaseController:
     # init DataBaseController and attach basic databases
     def __init__(self):
         # user database
-        self.userdb = TinyDB("Databases/users.json")
+        self.userdb = TinyDB("DB/db_users.json")
         # tool database
-        self.toolsdb = TinyDB("Databases/tools.json")
+        self.toolsdb = TinyDB("DB/db_products.json")
         # rental database
-        self.rentalsdb = TinyDB("Databases/rentals.json")
+        self.rentalsdb = TinyDB("DB/db_rentals.json")
         # invoice database
-        self.invoicesdb = TinyDB("Databases/invoices.json")
+        self.invoicesdb = TinyDB("DB/db_invoices.json")
 
     # create user with username, password, avatar, balance =0 and save to database
     def createuser(self, username, password, avatar):

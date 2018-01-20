@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.ttk import *
 
 from PAGES.p_end_rental import p_end_rental
-from PAGES.p_invoice import p_invoice
+from PAGES.p_product import p_product
 from PAGES.p_invoice import p_invoice
 from PAGES.p_start import p_start
 from PAGES.p_my_product import p_my_product
@@ -11,14 +11,13 @@ from PAGES.p_new_rental import p_new_rental
 from PAGES.p_result import p_result
 from PAGES.p_search import p_search
 from PAGES.p_product import p_product
-from PAGES.success import success
-from PAGES.addtool import addtool
-from PAGES.signup import signup
-
+from PAGES.p_new_product import p_new_product
+from PAGES.p_signup import p_signup
+from PAGES.p_multiple_invoices import p_multiple_invoices
 from FUNC.f_logon import f_logon
 
 class MAIN(Tk):
-    session = LoginController()
+    session = f_logon()
     searchkeyword = ""
     selectedtool = ""
     selectedinvoice = ""
@@ -35,7 +34,9 @@ class MAIN(Tk):
 
         # title of the pages
         self.title("Shared Power")
-        self.iconbitmap("res/favicon.ico")
+        self.iconbitmap("RES/favicon/favicon.ico")
+        self.geometry("{0}x{1}+0+0".format(
+            self.winfo_screenwidth(), self.winfo_screenheight()))
 
         # store pages
         container = Frame(self)
@@ -44,10 +45,8 @@ class MAIN(Tk):
         self.frames = {}
 
         # loop in list of pages
-        for F in (
-                MainPage, SignUpPage, SearchPage, ResultPage, AddPage, MyToolsPage, ProductPage, SuccessPage,
-                RentalPage,
-                FinishRentalPage, ToolPage, MyToolPage, InvoicePage, InvoicesPage):
+        for F in (p_product, p_search, p_result, p_new_rental, p_my_product, p_start, p_invoice, p_end_rental,
+                  p_my_products, p_new_product, p_signup, p_product, p_multiple_invoices):
             #add frame to program
             frame = F(container, self)
             #add frame to list of runned frames
@@ -55,7 +54,7 @@ class MAIN(Tk):
             #place frame on grid
             frame.grid(row=0, column=0, sticky="nsew")
         #display mainPage
-        self.show_frame(MainPage)
+        self.show_frame(p_start)
 
     # this function stacks pages and displays the current one
     def show_frame(self, cont):
@@ -69,5 +68,5 @@ class MAIN(Tk):
 
 # main loop
 if __name__ == "__main__":
-    app = Main()
+    app = MAIN()
     app.mainloop()

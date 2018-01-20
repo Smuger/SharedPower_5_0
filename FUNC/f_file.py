@@ -1,14 +1,16 @@
 from shutil import copy2
 from tkinter import filedialog
 
-from Controllers.Setting import SettingsController
+from FUNC.f_userd import f_userd
 
 
-class FileController:
+class f_file:
     def uploadfile(self):
         path = filedialog.askopenfilename(initialdir="/", title="Select file",
                                           filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-        return copy2(path, SettingsController.UPLOADPATH).replace("\\", "/")
+        print(path)
+        print(f_userd.UPLOADPATH)
+        return copy2(path, f_userd.UPLOADPATH).replace("\\", "/")
     #upload mutiple files
     def uploadphotos(self):
         #list of path to photos
@@ -18,7 +20,7 @@ class FileController:
                                             filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
         #change path to correct for tkinter
         for file in filez:
-            photo = copy2(file, SettingsController.UPLOADPATH).replace("\\", "/")
+            photo = copy2(file, f_userd.UPLOADPATH).replace("\\", "/")
             photolist.append(photo)
-        #return corrected list of photos
+            #return corrected list of photos
         return photolist
