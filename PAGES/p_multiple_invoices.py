@@ -25,23 +25,21 @@ class p_multiple_invoices(Frame):
         Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
         Button(self, text="Back", command=lambda: self.controller.show_frame(p_search)).pack(pady=10, padx=10)
 
-        scrollbar = Scrollbar(self)
-        scrollbar.pack(side=RIGHT, fill=Y)
-        self.invoicesbox = Listbox(self, yscrollcommand=scrollbar.set)
+
+        self.invoicesbox = Listbox(self)
         for line in range(100):
             self.invoicesbox.insert(END, "Invoice number" + str(line))
         self.invoicesbox.pack(fill=BOTH)
-        scrollbar.config(command=self.invoicesbox.yview())
+
         Label(self, text="Invoiced from my rentings:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
         # scrollbar NOT-WORK
-        scrollbar = Scrollbar(self)
-        scrollbar.pack(side=RIGHT, fill=Y)
-        self.relinvoces = Listbox(self, yscrollcommand=scrollbar.set)
+
+        self.relinvoces = Listbox(self)
         for line in range(100):
             self.relinvoces.insert(END, "Invoice number" + str(line))
         self.relinvoces.pack(fill=BOTH)
-        scrollbar.config(command=self.relinvoces.yview())
+
     #basic action
     def run(self):
         # reset basic data

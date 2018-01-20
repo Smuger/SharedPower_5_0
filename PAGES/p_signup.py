@@ -14,6 +14,7 @@ class p_signup(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
         self.file = f_file()
+
         # topic
         Label(self, text="Welcome to SharedPower", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
@@ -24,12 +25,46 @@ class p_signup(Frame):
         Label(self, text="Login:", font=f_userd.SMALL_FONT).pack()
         self.LOGIN = Entry(self, textvariable=f_userd.LOGIN_NEW)
         self.LOGIN.pack()
+
+        Label(self, text="Email:", font=f_userd.SMALL_FONT).pack()
+        self.EMAIL = Entry(self, textvariable=f_userd.EMAIL_NEW)
+        self.EMAIL.pack()
+
+        Label(self, text="Postcode:", font=f_userd.SMALL_FONT).pack()
+        self.POSTCODE = Entry(self, textvariable=f_userd.EMAIL_NEW)
+        self.POSTCODE.pack()
+
+        Label(self, text="Address:", font=f_userd.SMALL_FONT).pack()
+        self.ADDRESS = Entry(self, textvariable=f_userd.POSTCODE_NEW)
+        self.ADDRESS.pack()
+
+        Label(self, text="Card owner name:", font=f_userd.SMALL_FONT).pack()
+        self.CARD_OWNER = Entry(self, textvariable=f_userd.CARD_OWNER_NEW)
+        self.CARD_OWNER.pack()
+
+        Label(self, text="Card number:", font=f_userd.SMALL_FONT).pack()
+        self.CARD_NUMBER = Entry(self, textvariable=f_userd.CARD_NUMBER_NEW)
+        self.CARD_NUMBER.pack()
+
+        Label(self, text="Card security code:", font=f_userd.SMALL_FONT).pack()
+        self.CARD_SECURITY_CODE = Entry(self, textvariable=f_userd.CARD_SECURITY_CODE_NEW)
+        self.CARD_SECURITY_CODE.pack()
+
+        Label(self, text="Card expiration date:", font=f_userd.SMALL_FONT).pack()
+        self.CARD_EXPIRATION_DATE = Entry(self, textvariable=f_userd.CARD_EXPIRATION_DATE_NEW)
+        self.CARD_EXPIRATION_DATE.pack()
+
         Label(self, text="Avatar:", font=f_userd.SMALL_FONT).pack()
         Button(self, text='Browse', command=self.askopenfile).pack()
+        self.path = Label(self, text="", font=f_userd.SMALL_FONT)
+        self.path.pack()
+
+
         # password
         Label(self, text="Password:", font=f_userd.SMALL_FONT).pack()
         self.password = Entry(self, show="*", textvariable=f_userd.PASSWORD_NEW)
         self.password.pack()
+
         Label(self, text="Password again:", font=f_userd.SMALL_FONT).pack()
         self.repeatpassword = Entry(self, show="*", textvariable=f_userd.PASSWORD_NEW)
         self.repeatpassword.pack()
@@ -56,10 +91,14 @@ class p_signup(Frame):
 
         else:
             self.errors['text'] = "Password are not the same"
+    def show_path(self):
+        self.path["text"] = self.avatar
 
     def askopenfile(self):
-
         self.avatar = self.file.uploadfile()
+        self.show_path()
+
+
 
     def run(self):
         pass

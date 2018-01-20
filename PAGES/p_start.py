@@ -13,31 +13,28 @@ class p_start(Frame):
         Frame.__init__(self, parent)
 
         # logo with antialiasing
-        self.avatar = Label(self)
-        self.avatar.pack(pady=50, padx=10)
-        avatar_file = ImageTk.PhotoImage(Image.open('RES/logo/logo.png').resize((256, 256), Image.ANTIALIAS))
-        self.avatar.image = avatar_file
-        self.avatar.config(image=avatar_file)
+        self.logo = PhotoImage(file="RES/logo/logo.png")
+        self.label = Label(self, image=self.logo)
+        self.label.image = self.logo
+        self.label.grid(row=0, column=0, columnspan=2)
 
-        # topic
-        Label(self, text="Welcome to SharedPower", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
         # sign up
-        Button(self, text="Sing up", command=lambda: controller.show_frame(p_signup)).pack(pady=10, padx=10)
-        Label(self, text="Login:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
+        Button(self, text="Sing up", command=lambda: controller.show_frame(p_signup)).grid(row=4, column=0, sticky=EW)
+        Label(self, text="Login:", font=f_userd.LARGE_FONT).grid(row=1, column=0)
 
         # SettingsController.LOGIN
         self.LOGIN = Entry(self, textvariable=f_userd.LOGIN)
-        self.LOGIN.pack()
-        Label(self, text="Password:", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
+        self.LOGIN.grid(row=1, column=1)
+        Label(self, text="Password:", font=f_userd.LARGE_FONT).grid(row=2, column=0)
 
         # password
         self.password = Entry(self, show="*", textvariable=f_userd.PASSWORD)
-        self.password.pack()
+        self.password.grid(row=2, column=1)
         self.errors = Label(self, text="", font=f_userd.SMALL_FONT)
-        self.errors.pack()
+        self.errors.grid(row=3, column=0, columnspan=2)
         # sign in
-        Button(self, text="Sign in", command=self.login).pack(pady=10, padx=10)
+        Button(self, text="Sign in", command=self.login).grid(row=4, column=1)
 
     # login front action
     def login(self):
@@ -52,7 +49,7 @@ class p_start(Frame):
         if (self.controller.session.session):
             self.controller.show_frame(p_search)
         else:
-            self.errors['text'] = "Password and Login doesn't match to any user."
+            self.errors['text'] = "This credentials are not correct"
     #basic action before show frame
     def run(self):
         #basic clear of frame

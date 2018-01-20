@@ -27,13 +27,12 @@ class p_result(Frame):
         search = Button(self, text="Search", command=self.search).pack()
 
         # scrollbar NOT-WORK
-        scrollbar = Scrollbar(self)
-        scrollbar.pack(side=RIGHT, fill=Y)
-        self.record = Listbox(self, yscrollcommand=scrollbar.set)
+
+        self.record = Listbox(self)
         for line in range(100):
             self.record.insert(END, "Tool number")
         self.record.pack(fill=BOTH)
-        scrollbar.config(command=self.record.yview())
+
         # scrollbar
 
     def run(self):
@@ -55,7 +54,7 @@ class p_result(Frame):
 
     def search(self):
         self.controller.searchkeyword = self.search_entry.get()
-        self.controller.show_frame(ResultPage)
+        self.controller.show_frame(p_result)
 
     def onselect(self, evt):
         from PAGES.p_product import p_product
@@ -64,4 +63,4 @@ class p_result(Frame):
         index = int(w.curselection()[0])
         value = w.get(index)
         self.controller.selectedtool = value
-        self.controller.show_frame(ToolPage)
+        self.controller.show_frame(p_product)

@@ -42,12 +42,13 @@ class p_new_product(Frame):
         self.type.pack()
 
         Label(self, text="Condition:", font=f_userd.LARGE_FONT).pack()
-        self.condition = Combobox(self)
+        self.condition = Combobox(self, values=f_userd.CONDITION_LIST, textvariable=f_userd.CONDITION)
         self.condition.pack()
         # add pic
         Label(self, text="Photo:", font=f_userd.LARGE_FONT).pack()
-
         Button(self, text='Browse', command=self.addphototools).pack()
+        self.path = Label(self, text="", font=f_userd.SMALL_FONT)
+        self.path.pack()
         # add PIC
 
         Label(self, text="Describe product:", font=f_userd.LARGE_FONT).pack()
@@ -59,7 +60,11 @@ class p_new_product(Frame):
         Label(self, text="Per day:", font=f_userd.SMALL_FONT).pack()
         self.priceperday = Entry(self, textvariable=f_userd.PRICE_DAY)
         self.priceperday.pack()
-        Label(self, text="Delivery method:", font=f_userd.SMALL_FONT).pack()
+
+        Label(self, text="Per hour:", font=f_userd.SMALL_FONT).pack()
+        self.priceperhour = Entry(self, textvariable=f_userd.PRICE_HOUR)
+        self.priceperhour.pack()
+        Label(self, text="Delivery method:", font=f_userd.LARGE_FONT).pack()
 
         self.pick = Checkbutton(self, text="Delivery with return", variable="Delivery with return",
                                 command=self.delivery)
@@ -98,12 +103,16 @@ class p_new_product(Frame):
             self.deliveryprices["Delivery with return"] = self.deliveryprice.get()
             self.deliveryprices["Delivery with return"] = self.deliveryprice.get()
 
+    def show_path(self):
+        self.path["text"] = self.photolist
     # run photo upload
     def addphototools(self):
         from FUNC.f_file import f_file
         file = f_file()
         self.photolist = file.uploadphotos()
         print(self.photolist)
+        self.show_path()
+
 
     # save tool
     def savetool(self):

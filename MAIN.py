@@ -35,8 +35,6 @@ class MAIN(Tk):
         # title of the pages
         self.title("Shared Power")
         self.iconbitmap("RES/favicon/favicon.ico")
-        self.geometry("{0}x{1}+0+0".format(
-            self.winfo_screenwidth(), self.winfo_screenheight()))
 
         # store pages
         container = Frame(self)
