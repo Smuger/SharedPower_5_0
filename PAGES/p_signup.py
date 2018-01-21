@@ -31,11 +31,11 @@ class p_signup(Frame):
         self.EMAIL.pack()
 
         Label(self, text="Postcode:", font=f_userd.SMALL_FONT).pack()
-        self.POSTCODE = Entry(self, textvariable=f_userd.EMAIL_NEW)
+        self.POSTCODE = Entry(self, textvariable=f_userd.POSTCODE_NEW)
         self.POSTCODE.pack()
 
         Label(self, text="Address:", font=f_userd.SMALL_FONT).pack()
-        self.ADDRESS = Entry(self, textvariable=f_userd.POSTCODE_NEW)
+        self.ADDRESS = Entry(self, textvariable=f_userd.ADDRESS_NEW)
         self.ADDRESS.pack()
 
         Label(self, text="Card owner name:", font=f_userd.SMALL_FONT).pack()
@@ -82,7 +82,7 @@ class p_signup(Frame):
             if (user.checklogin(self.LOGIN.get())):
                 if (self.avatar != ""):
 
-                    user.create_account(self.LOGIN.get(), self.password.get(), self.avatar)
+                    user.create_account(self.LOGIN.get(), self.EMAIL.get(), self.POSTCODE.get(), self.ADDRESS.get(), self.CARD_OWNER.get(), self.CARD_NUMBER.get(), self.CARD_SECURITY_CODE.get(), self.CARD_EXPIRATION_DATE.get(), self.password.get(), self.avatar)
                     self.controller.show_frame(p_start)
                 else:
                     self.errors['text'] = "Upload of avatar is required"

@@ -5,9 +5,9 @@ class f_users:
     def __init__(self):
         return
 
-    def create_account(self, username, password, avatar):
+    def create_account(self, username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar):
         db = f_db()
-        db.createuser(username, password, avatar)
+        db.createuser(username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar)
 
     def get_user_details(self, userid):
         db = f_db()

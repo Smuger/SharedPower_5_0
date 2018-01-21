@@ -14,6 +14,7 @@ class p_multiple_invoices(Frame):
         Frame.__init__(self, parent)
         #basic imports
         from PAGES.p_start import p_start
+        from PAGES.p_my_products import p_my_products
         from PAGES.p_result import p_result
         from FUNC.f_products import f_products
         #basic properties
@@ -23,7 +24,7 @@ class p_multiple_invoices(Frame):
 
         #basic gui
         Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
-        Button(self, text="Back", command=lambda: self.controller.show_frame(p_search)).pack(pady=10, padx=10)
+        Button(self, text="Back", command=lambda: self.controller.show_frame(p_my_products)).pack(pady=10, padx=10)
 
 
         self.invoicesbox = Listbox(self)

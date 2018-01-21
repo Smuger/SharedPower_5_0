@@ -41,7 +41,6 @@ class p_search(Frame):
 
         # mytools
         Button(self, text="My tools", command=lambda: controller.show_frame(p_my_products)).pack()
-        Button(self, text="My invoices", command=lambda: controller.show_frame(p_multiple_invoices)).pack()
 
         # addtool
         Button(self, text="Add tool", command=lambda: controller.show_frame(p_new_product)).pack()

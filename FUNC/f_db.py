@@ -20,9 +20,9 @@ class f_db:
         self.invoicesdb = TinyDB("DB/db_invoices.json")
 
     # create user with username, password, avatar, balance =0 and save to database
-    def createuser(self, username, password, avatar):
+    def createuser(self, username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar):
         self.userdb.insert(
-            {"id": str(time.time()), 'name': username, 'password': password, "avatar": avatar, "balance": 0})
+            {"id": str(time.time()), 'name': username, 'email': email, 'postcode': postcode, 'address': address, 'card_owner': card_owner, 'card_number': card_number, 'card_security': card_security, 'card_expiration': card_expiration, 'password': password, "avatar": avatar, "balance": 0})
 
     # check if exists any user with username
     def checkavaibilityoflogin(self, username):
@@ -80,6 +80,8 @@ class f_db:
             return self.toolsdb.search(Tool.userid == query)
         elif (searchby == "id"):
             return self.toolsdb.search(Tool.id == query)
+        elif (searchby == "condition"):
+            return self.toolsdb.search(Tool.condition == query)
 
     # check if exist any rent in period of time
     def checkavaiblity(self, toolid, startdate, enddate):

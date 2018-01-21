@@ -29,17 +29,23 @@ class p_product(Frame):
         self.avatar = Label(self, image=product_file)
         self.avatar.image = product_file
         self.avatar.pack()
+
+        Label(self, text="Condition:", font=f_userd.LARGE_FONT).pack()
+        self.condition = Label(self, text="Condition:", font=f_userd.LARGE_FONT, wraplength=350, justify=CENTER)
+        self.condition.pack()
+
         Label(self, text="Description:", font=f_userd.LARGE_FONT).pack()
-        self.description = Label(self, text="Name:", font=f_userd.LARGE_FONT, wraplength=350, justify=CENTER)
+        self.description = Label(self, text="Name:", font=f_userd.SMALL_FONT, wraplength=350, justify=CENTER)
         self.description.pack()
 
-        self.frame = Frame(self, relief=RAISED, borderwidth=1)
-        self.frame.pack(expand=True)
 
-        Label(self, text="Price: £", font=f_userd.LARGE_FONT).pack()
-        self.price = Label(self, text="Name:", font=f_userd.LARGE_FONT)
+
+        Label(self, text="Price: ", font=f_userd.LARGE_FONT).pack()
+        self.price = Label(self, text="", font=f_userd.SMALL_FONT)
         self.price.pack()
         Button(self, text="Rent", command=self.rental).pack(pady=10, padx=10)
+        self.frame = Frame(self, relief=RAISED, borderwidth=1)
+        self.frame.pack(expand=True)
 
     def run(self):
         tools = self.tool.search_by_name(self.controller.selectedtool)
@@ -48,9 +54,11 @@ class p_product(Frame):
         tool = tools[0]
         self.dayfee = tool["price"]
         self.name["text"] = tool["name"]
-        self.price["text"] = tool["price"]
+        self.price["text"] =  "£" + tool["price"]
         self.controller.selectedtoolid = tool["id"]
         self.description["text"] = tool["description"]
+        self.condition["text"] = tool["condition"]
+
 
         for photo in tool["photos"]:
             photo = Image.open((photo))

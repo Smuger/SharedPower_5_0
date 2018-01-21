@@ -10,6 +10,7 @@ class p_my_products(Frame):
     toollist = []
     renttoollist =[]
     def __init__(self, parent, controller):
+        from PAGES.p_multiple_invoices import p_multiple_invoices
         from PAGES.p_start import p_start
         from PAGES.p_search import p_search
         from FUNC.f_userd import f_userd
@@ -21,6 +22,7 @@ class p_my_products(Frame):
         Frame.__init__(self, parent)
         # logout
         Button(self, text="Logout", command=lambda: self.controller.show_frame(p_start)).pack()
+        Button(self, text="My invoices", command=lambda: controller.show_frame(p_multiple_invoices)).pack()
 
         # back
         back = Button(self, text="Back", command=lambda: self.controller.show_frame(p_search)).pack(pady=10, padx=10)
