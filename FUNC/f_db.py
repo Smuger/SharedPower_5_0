@@ -18,17 +18,17 @@ class f_db:
         self.invoicesdb = TinyDB("DB/db_invoices.json")
 
     # add new user record handler
-    def createuser(self, username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar):
+    def user_create_db(self, username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar):
         self.userdb.insert(
             {"id": str(time.time()), 'name': username, 'email': email, 'postcode': postcode, 'address': address, 'card_owner': card_owner, 'card_number': card_number, 'card_security': card_security, 'card_expiration': card_expiration, 'password': password, "avatar": avatar, "balance": 0})
 
     # is this login available handler
-    def checkavaibilityoflogin(self, username):
+    def login_available_db(self, username):
         User = Query()
         return self.userdb.search((User.name == username))
 
     # add new product record handler
-    def createtool(self, userid, name, price, type, photolist, condition, description, deliveryprices):
+    def create_product_db(self, userid, name, price, type, photolist, condition, description, deliveryprices):
         self.toolsdb.insert(
             {"id": str(time.time()), 'userid': userid, 'name': name, 'price': price, 'typeof': type,
              "photos": photolist,
@@ -111,7 +111,7 @@ class f_db:
         Rental = Query()
         self.rentalsdb.update({'status': 1}, Rental.id == rentalid)
 
-    # add invoice handler
+    # add invoice
     def addinvoice(self, userid, itemlist, summaryprice, ownerid, photolist):
         now = time.time()
         self.invoicesdb.insert(

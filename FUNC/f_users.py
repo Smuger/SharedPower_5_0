@@ -8,7 +8,7 @@ class f_users:
     # create account handler
     def create_account(self, username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar):
         db = f_db()
-        db.createuser(username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar)
+        db.user_create_db(username, email, postcode, address, card_owner, card_number, card_security, card_expiration, password, avatar)
 
     # pass user details handler
     def get_user_details(self, userid):
@@ -18,7 +18,7 @@ class f_users:
     # is login correct handler
     def checklogin(self, username):
         db = f_db()
-        if (db.checkavaibilityoflogin(username)):
+        if (db.login_available_db(username)):
             return False
         return True
 

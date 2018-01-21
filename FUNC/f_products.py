@@ -24,7 +24,7 @@ class f_products():
     # add product handler
     def add_tool(self, userid, name, price, type, photolist, condition, description, deliveryprices):
         db = f_db()
-        db.createtool(userid, name, price, type, photolist, condition, description, deliveryprices)
+        db.create_product_db(userid, name, price, type, photolist, condition, description, deliveryprices)
 
     # pass tool by id handler
     def gettoolbyid(self, toolid):
