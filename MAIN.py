@@ -1,8 +1,9 @@
+# import tkinter
 from tkinter import *
 from tkinter.ttk import *
 
+# import pages
 from PAGES.p_end_rental import p_end_rental
-from PAGES.p_product import p_product
 from PAGES.p_invoice import p_invoice
 from PAGES.p_start import p_start
 from PAGES.p_my_product import p_my_product
@@ -14,9 +15,13 @@ from PAGES.p_product import p_product
 from PAGES.p_new_product import p_new_product
 from PAGES.p_signup import p_signup
 from PAGES.p_multiple_invoices import p_multiple_invoices
+
+# import logon functionality
 from FUNC.f_logon import f_logon
 
 class MAIN(Tk):
+
+    # data storage
     session = f_logon()
     searchkeyword = ""
     selectedtool = ""
@@ -32,37 +37,31 @@ class MAIN(Tk):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
 
-        # title of the pages
+        # title and a name of the window
         self.title("Shared Power")
         self.iconbitmap("RES/favicon/favicon.ico")
 
-        # store pages
+        # general container
         container = Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
 
-        # loop in list of pages
+        # page stack system
         for F in (p_product, p_search, p_result, p_new_rental, p_my_product, p_start, p_invoice, p_end_rental,
                   p_my_products, p_new_product, p_signup, p_product, p_multiple_invoices):
-            #add frame to program
             frame = F(container, self)
-            #add frame to list of runned frames
             self.frames[F] = frame
-            #place frame on grid
             frame.grid(row=0, column=0, sticky="nsew")
-        #display mainPage
+
+        # show first page
         self.show_frame(p_start)
 
-    # this function stacks pages and displays the current one
+    # take page to the top of a stack
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.run()
         frame.tkraise()
-
-
-# Every class is a new page
-
 
 # main loop
 if __name__ == "__main__":

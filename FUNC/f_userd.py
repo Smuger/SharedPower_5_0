@@ -1,4 +1,4 @@
-#basic configuration of program and global variables
+# main data storage
 class f_userd:
     LARGE_FONT = ("Helvetica", 12)
     SMALL_FONT = ("Helvetica", 8)

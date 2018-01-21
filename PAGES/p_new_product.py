@@ -1,89 +1,99 @@
+# import tkinter
 from tkinter import *
 from tkinter.ttk import *
-from tkinter import filedialog
+
+# import functionality
 from FUNC.f_products import f_products
-from shutil import copy2
 
-from FUNC.f_userd import f_userd
-
-
-# Add toll Page frame
 class p_new_product(Frame):
-    # basic properties
+    # storage
     photolist = []
     deliverymethod = []
     deliveryprices = {}
-
-    # init of frame
     def __init__(self, parent, controller):
-        # basic import for frame
+
+        # import pages
         from PAGES.p_start import p_start
         from PAGES.p_search import p_search
+
+        # import functionality
         from FUNC.f_userd import f_userd
-
         Frame.__init__(self, parent)
-        self.controller = controller
-        # logout
 
+        # define controller
+        self.controller = controller
+
+        # logout
         Button(self, text="Logout", command=lambda: controller.show_frame(p_start)).pack()
 
         # back
         Button(self, text="Back", command=lambda: controller.show_frame(p_search)).pack(pady=10, padx=10)
 
-        # topic
         Label(self, text="Add tool", font=f_userd.LARGE_FONT).pack(pady=10, padx=10)
 
-        # DATA
+        # product name
         Label(self, text="Name:", font=f_userd.SMALL_FONT).pack()
         self.name = Entry(self, textvariable=f_userd.NAME)
         self.name.pack()
+
+        # product type
         Label(self, text="Type:", font=f_userd.SMALL_FONT).pack()
         self.type = Entry(self, textvariable=f_userd.TYPE)
         self.type.pack()
 
+        # product condition
         Label(self, text="Condition:", font=f_userd.LARGE_FONT).pack()
         self.condition = Combobox(self, values=f_userd.CONDITION_LIST, textvariable=f_userd.CONDITION)
         self.condition.pack()
-        # add pic
+
+        # product picture
         Label(self, text="Photo:", font=f_userd.LARGE_FONT).pack()
         Button(self, text='Browse', command=self.addphototools).pack()
         self.path = Label(self, text="", font=f_userd.SMALL_FONT)
         self.path.pack()
-        # add PIC
 
+        # product description
         Label(self, text="Describe product:", font=f_userd.LARGE_FONT).pack()
         self.description = Entry(self, textvariable=f_userd.DESCRIPTION)
         self.description.pack()
 
+        # prices
         Label(self, text="Price in £", font=f_userd.LARGE_FONT).pack()
 
+        # price per day
         Label(self, text="Per day:", font=f_userd.SMALL_FONT).pack()
         self.priceperday = Entry(self, textvariable=f_userd.PRICE_DAY)
         self.priceperday.pack()
 
+        # prices per hour
         Label(self, text="Per hour:", font=f_userd.SMALL_FONT).pack()
         self.priceperhour = Entry(self, textvariable=f_userd.PRICE_HOUR)
         self.priceperhour.pack()
+
+        # choose delivery
         Label(self, text="Delivery method:", font=f_userd.LARGE_FONT).pack()
-
-        self.pick = Checkbutton(self, text="Delivery with return", variable="Delivery with return",
-                                command=self.delivery)
+        self.pick = Checkbutton(self, text="Delivery with return", variable="Delivery with return", command=self.delivery)
         self.pick.pack()
-        Label(self, text="Delivery price:", font=f_userd.SMALL_FONT).pack()
 
+        # prices for delivery
+        Label(self, text="Delivery price:", font=f_userd.SMALL_FONT).pack()
         self.pickprice = Entry(self, textvariable=f_userd.DESCRIPTION)
         self.pickprice.pack()
+
+        # do you want this delivery
         self.delivery = Checkbutton(self, text="One way delivery", variable="delivery", command=self.deliverywithreturn)
         self.delivery.pack()
-        Label(self, text="Delivery price:", font=f_userd.SMALL_FONT).pack()
 
+        # delivery prices
+        Label(self, text="Delivery price:", font=f_userd.SMALL_FONT).pack()
         self.deliveryprice = Entry(self, textvariable=f_userd.DESCRIPTION)
         self.deliveryprice.pack()
 
-        # DATA
+        # add tool
         Button(self, text="Add tool", command=self.savetool).pack(pady=10, padx=10)
         self.delivery.setvar()
-    # delivery methods
+
+    # choose delivery
     def delivery(self):
         if ("One way Delivery" in self.deliverymethod):
             self.deliverymethod.remove("One way Delivery")
@@ -92,7 +102,7 @@ class p_new_product(Frame):
             self.deliverymethod.append("One way Delivery")
             self.deliveryprices["One way Delivery"] = self.pickprice.get()
 
-    # delivery methods
+    # choose delivery
     def deliverywithreturn(self):
         if ("Delivery with return" in self.deliverymethod):
 
@@ -103,18 +113,18 @@ class p_new_product(Frame):
             self.deliveryprices["Delivery with return"] = self.deliveryprice.get()
             self.deliveryprices["Delivery with return"] = self.deliveryprice.get()
 
+    # show path of a photo
     def show_path(self):
         self.path["text"] = self.photolist
-    # run photo upload
+
+    # add photo
     def addphototools(self):
         from FUNC.f_file import f_file
         file = f_file()
         self.photolist = file.uploadphotos()
-        print(self.photolist)
         self.show_path()
 
-
-    # save tool
+    # add data to db
     def savetool(self):
         from PAGES.p_my_products import p_my_products
         products = f_products()
@@ -122,6 +132,6 @@ class p_new_product(Frame):
                        self.photolist, self.condition.get(), self.description.get(), self.deliveryprices)
         self.controller.show_frame(p_my_products)
 
-    # basic action before show frame
+    # cleanup
     def run(self):
         pass
